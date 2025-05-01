@@ -1,0 +1,27 @@
+<!-- verify_otp.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="/static/verify.css">
+</head>
+<body>
+    <h2>Enter the OTP sent to your phone</h2>
+    <form method="post">
+        <input type="text" name="otp_code" required>
+        <button type="submit">Verify</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
+
