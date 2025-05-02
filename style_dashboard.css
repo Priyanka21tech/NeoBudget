@@ -205,3 +205,82 @@ form[action="/load_expenses"] button:hover {
         width: 100%;
     }
 }
+
+
+/* chat bot style */
+/* 💬 Chatbot Popup */
+#chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #417511;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#chat-container {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 320px;
+    max-width: 90%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: none;
+    flex-direction: column;
+    z-index: 999;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+#chat-container header {
+    background-color: #417511;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+}
+
+#chat-container header span {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+}
+
+#chat-box {
+    padding: 10px;
+    height: 200px;
+    overflow-y: auto;
+    background: #f8f8f8;
+}
+
+#chat-container input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+#chat-container button {
+    background-color: #417511;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
