@@ -215,7 +215,7 @@ def visualize_expenses():
         data = cursor.fetchall()
         if data:
             df = pd.DataFrame(data, columns=['Category', 'Amount'])
-            plt.figure(figsize=(5, 6))
+            plt.figure(figsize=(15, 6))
             sns.barplot(x='Category', y='Amount', data=df)
             plt.xticks(rotation=30)
             plt.title('Expenses by Category')
@@ -317,13 +317,24 @@ def chat():
 
     # Handle general chatbot queries dynamically
     try:
-        # SystemMessage to define the context of the assistant
+        if "total" in user_input.lower() and "expense" in user_input.lower():
+            cursor.execute("SELECT SUM(amount) FROM expenses WHERE user_id=%s", (user_id,))
+            total = cursor.fetchone()[0]
+            if total:
+                return jsonify({"reply": f"Your total expenses: ₹{total}"})
+            else:
+                return jsonify({"reply": "No expenses recorded yet."})
+   
+    # Compute total expense for context
+        cursor.execute("SELECT SUM(amount) FROM expenses WHERE user_id=%s", (user_id,))
+        total = cursor.fetchone()[0] or 0
+
         system_message = f'''
-            You are a smart assistant in a personal finance tracker app. 
-            The user has spent a total of ₹{{total_spent}} on various categories of expenses.
-            Answer their query based on their inputs, focusing on expenses and financial data.
-            
-        '''
+        You are a smart assistant in a personal finance tracker app. 
+        The user has spent a total of ₹{total} on various categories of expenses.
+        Answer their query based on their inputs, focusing on expenses and financial data. 
+        If the user has no data in the expenses table in the database, then respond that they should enter data first.
+    '''
 
         # Pass the user input as a HumanMessage
         messages = [
